@@ -143,8 +143,12 @@ It takes a larger cognitive load to read text that is rotated. It is common prac
 ```{r}
 #| label: boxplot
 
-ggplot(data = surveys) +
-  geom_boxplot(aes(x = species, y = weight))
+ggplot(aes(x = species, y = weight), data = surveys) +
+  geom_jitter(color = "darkseagreen", alpha = 0.2) +
+  geom_boxplot(alpha = 0) +
+  labs(x = "Species of Animal", y = "Weight of Animal (g)", title = "Distributions of the weights of each species") +
+  theme(axis.text.x = element_text(angle = 315, hjust = -0.15)) #https://stackoverflow.com/questions/1330989/rotating-and-spacing-axis-labels-in-ggplot2
+  
 
 ```
 
@@ -186,6 +190,11 @@ Some people (and journals) prefer for boxplots to be stacked with a specific ori
 
 ```{r}
 #| label: rotated-boxplot
+
+ggplot(aes(x = weight, y = species), data = surveys) +
+  geom_jitter(color = "darkseagreen", alpha = 0.2) +
+  geom_boxplot(alpha = 0) +
+  labs(x = "Species of Animal", y = "Weight of Animal (g)", title = "Distributions of the weights of each species") 
 
 ```
 
