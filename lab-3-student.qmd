@@ -1,3 +1,14 @@
+---
+title: "Lab 3: ggplot2"
+author: "Kate Roetcisoender"
+date: "today"
+format: html
+editor: source
+embed-resources: true
+code-tools: true
+echo: true
+---
+
 # Part 1: Setup
 
 ## GitHub Workflow
@@ -37,7 +48,7 @@ This document is quite plain, meaning it does not have any special formatting. A
 
 In the code chunk below, load in the packages necessary for your analysis. You should only need the `tidyverse` package for this analysis.
 
-```{r}
+```{r, include=FALSE}
 #| label: setup
 
 library(tidyverse)
@@ -109,7 +120,7 @@ Let's get started!
 #| label: scatterplot
 
 ggplot(data = surveys) +
-  geom_point(aes(x = weight, y = hindfoot_length, color = species), alpha = 0.25)+
+  geom_point(aes(x = weight, y = hindfoot_length, color = species), alpha = 0.25) +
   facet_wrap(~species, scales = "free") +
   labs(x = "Weight of Animal (g)", y = "", subtitle = "Length of Hindfoot (mm)", title = "Relationship between weight and hindfoot length in species \nobserved by the Portal Project LTER") +
   scale_color_viridis_d(end = 0.8) +
@@ -149,7 +160,6 @@ ggplot(aes(x = species, y = weight), data = surveys) +
   labs(x = "Species of Animal", y = "Weight of Animal (g)", title = "Distributions of the weights of each species") +
   theme(axis.text.x = element_text(angle = 315, hjust = -0.15)) #https://stackoverflow.com/questions/1330989/rotating-and-spacing-axis-labels-in-ggplot2
   
-
 ```
 
 **9. Create side-by-side boxplots to visualize the distribution of weight within each species.**
@@ -192,9 +202,13 @@ Some people (and journals) prefer for boxplots to be stacked with a specific ori
 #| label: rotated-boxplot
 
 ggplot(aes(x = weight, y = species), data = surveys) +
-  geom_jitter(color = "darkseagreen", alpha = 0.2) +
+  geom_jitter(aes(color = species), alpha = 0.2) +
   geom_boxplot(alpha = 0) +
-  labs(x = "Species of Animal", y = "Weight of Animal (g)", title = "Distributions of the weights of each species") 
+  labs(y = "Species of Animal", 
+       x = "Weight of Animal (g)", 
+       title = "Distributions of the weights of each species") +
+  scale_color_manual(values = c("darkseagreen", "slateblue2", "aquamarine3", "cadetblue3", "forestgreen", "turquoise", "royalblue", "seagreen2", "skyblue2", "lightseagreen", "powderblue", "darkgreen", "navy", "lightblue")) +
+  guides(color = "none")
 
 ```
 
